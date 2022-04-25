@@ -1,4 +1,4 @@
-import {} from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 
 import type { City } from './queries'
 
@@ -8,9 +8,9 @@ type Props = {
 
 export function CityBlock({ city }: Props): JSX.Element {
   return (
-    <article>
-      <p>{city.name}</p>
-      <p>{city.country}</p>
-    </article>
+    <Box as="article" textAlign="left" w="100%">
+      <Text fontSize="3xl">{city.name}</Text>
+      <Text color="gray.600">{city.country}</Text>
+    </Box>
   )
 }

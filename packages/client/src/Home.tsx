@@ -25,7 +25,13 @@ export const Home: FC = () => {
       <Container maxW="container.md">
         {loading && <Icon as={SpinnerIcon} w={8} h={8} color="blue.500" role="progressbar" aria-busy={true} />}
         {error && <ErrorAlert message={error.message} />}
-        {data && data.cities.cities.map((city: City) => <CityBlock key={city.id} city={city} />)}
+        {data && (
+          <VStack spacing={4}>
+            {data.cities.cities.map((city: City) => (
+              <CityBlock key={city.id} city={city} />
+            ))}
+          </VStack>
+        )}
       </Container>
     </VStack>
   )
