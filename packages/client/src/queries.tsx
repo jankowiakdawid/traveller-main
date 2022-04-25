@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const GET_CITIES = gql`
-  query Cities {
-    cities(filter: { name: "" }, limit: 10) {
+  query Cities($city_name: String!) {
+    cities(filter: { name: $city_name }, limit: 10) {
       cities {
         id
         name

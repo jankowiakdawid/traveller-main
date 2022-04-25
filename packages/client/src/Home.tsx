@@ -11,16 +11,27 @@ import type { City } from './queries'
 import { CityBlock } from './CityBlock'
 
 export const Home: FC = () => {
-  const { loading, error, data } = useQuery(GET_CITIES)
+  const [variables, setVariables] = React.useState({ city_name: '' })
+  const { loading, error, data } = useQuery(GET_CITIES, { variables })
+
+  function search(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const variables = Object.fromEntries(new FormData(event.currentTarget)) as { city_name: string }
+
+    setVariables(variables)
+  }
 
   return (
     <VStack spacing="8">
       <Heading as="h1">Smart traveller</Heading>
       <Container maxW="container.md">
-        <InputGroup>
-          <Input />
-          <InputRightElement children={<IconButton aria-label="" icon={<Search2Icon />} />} />
-        </InputGroup>
+        <form onSubmit={search}>
+          <InputGroup>
+            <Input name="city_name" placeholder="Search for a city" />
+            <InputRightElement children={<IconButton aria-label="" icon={<Search2Icon />} />} />
+          </InputGroup>
+        </form>
       </Container>
       <Container maxW="container.md">
         {loading && <Icon as={SpinnerIcon} w={8} h={8} color="blue.500" role="progressbar" aria-busy={true} />}
