@@ -22,3 +22,25 @@ test('should show error alert on error', async () => {
   await screen.findByRole('alert')
   screen.queryByText('Woops! Something went horribly worng!')
 })
+
+test('should show list of cities', async () => {
+  const mock = {
+    request: {
+      query: GET_CITIES,
+    },
+    result: {
+      data: {
+        cities: {
+          cities: [
+            { id: 1, name: 'Poznan', country: 'Poland' },
+            { id: 2, name: 'London', country: 'Great Britain' },
+          ],
+        },
+      },
+    },
+  }
+  render(<Home />, { mocks: [mock] })
+
+  await screen.findByText('Poznan')
+  await screen.findByText('London')
+})

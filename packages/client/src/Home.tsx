@@ -18,8 +18,14 @@ export const GET_CITIES = gql`
   }
 `
 
+type City = {
+  id: number
+  name: string
+  country: string
+}
+
 export const Home: FC = () => {
-  const { loading, error } = useQuery(GET_CITIES)
+  const { loading, error, data } = useQuery(GET_CITIES)
 
   return (
     <VStack spacing="8">
@@ -33,6 +39,13 @@ export const Home: FC = () => {
       <Container maxW="container.md">
         {loading && <Icon as={SpinnerIcon} w={8} h={8} color="blue.500" role="progressbar" aria-busy={true} />}
         {error && <ErrorAlert message={error.message} />}
+        {data &&
+          data.cities.cities.map((city: City) => (
+            <article key={city.id}>
+              <p>{city.name}</p>
+              <p>{city.country}</p>
+            </article>
+          ))}
       </Container>
     </VStack>
   )
