@@ -2,7 +2,8 @@ import React from 'react'
 import { screen } from '@testing-library/react'
 
 import { render } from './test-utils'
-import { Home, GET_CITIES } from './Home'
+import { Home } from './Home'
+import { GET_CITIES } from './queries'
 
 test('should show loading indicator', () => {
   render(<Home />)
