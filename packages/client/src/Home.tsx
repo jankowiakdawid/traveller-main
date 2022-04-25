@@ -4,7 +4,9 @@ import { Container, InputRightElement, Input, Heading, InputGroup, IconButton, V
 import { Search2Icon, SpinnerIcon } from '@chakra-ui/icons'
 import { gql, useQuery } from '@apollo/client'
 
-const GET_CITIES = gql`
+import { ErrorAlert } from './ErrorAlert'
+
+export const GET_CITIES = gql`
   query Cities {
     cities(filter: { name: "" }, limit: 10) {
       cities {
@@ -17,7 +19,7 @@ const GET_CITIES = gql`
 `
 
 export const Home: FC = () => {
-  const { loading } = useQuery(GET_CITIES)
+  const { loading, error } = useQuery(GET_CITIES)
 
   return (
     <VStack spacing="8">
@@ -30,6 +32,7 @@ export const Home: FC = () => {
       </Container>
       <Container maxW="container.md">
         {loading && <Icon as={SpinnerIcon} w={8} h={8} color="blue.500" role="progressbar" aria-busy={true} />}
+        {error && <ErrorAlert message={error.message} />}
       </Container>
     </VStack>
   )
