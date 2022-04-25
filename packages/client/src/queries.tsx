@@ -7,7 +7,17 @@ export const GET_CITIES = gql`
         id
         name
         country
+        visited
       }
+    }
+  }
+`
+
+export const VISIT_CITY = gql`
+  mutation VisitCity($id: Int!, $visited: Boolean!) {
+    updateCity(input: { id: $id, visited: $visited }) {
+      id
+      visited
     }
   }
 `
@@ -16,4 +26,5 @@ export type City = {
   id: number
   name: string
   country: string
+  visited: boolean
 }

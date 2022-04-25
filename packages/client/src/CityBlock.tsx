@@ -1,6 +1,8 @@
 import { Box, Text, HStack, Icon } from '@chakra-ui/react'
 import { CheckCircleIcon } from '@chakra-ui/icons'
+import { useMutation } from '@apollo/client'
 
+import { VISIT_CITY } from './queries'
 import type { City } from './queries'
 
 type Props = {
@@ -8,7 +10,9 @@ type Props = {
 }
 
 export function CityBlock({ city }: Props): JSX.Element {
-  const visitedColor = 'gray.200'
+  const visitedColor = city.visited ? 'green.400' : 'gray.200'
+
+  const [visitCity] = useMutation(VISIT_CITY)
 
   return (
     <HStack
@@ -22,7 +26,9 @@ export function CityBlock({ city }: Props): JSX.Element {
       paddingX={4}
       paddingY={2}
     >
-      <Icon as={CheckCircleIcon} w={6} h={6} color={visitedColor} />
+      <button onClick={() => visitCity({ variables: { id: city.id, visited: !city.visited } })}>
+        <Icon as={CheckCircleIcon} w={6} h={6} color={visitedColor} />
+      </button>
       <Box textAlign="left">
         <Text fontSize="3xl">{city.name}</Text>
         <Text color="gray.500" fontSize="xl">

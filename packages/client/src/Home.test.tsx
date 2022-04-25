@@ -34,8 +34,8 @@ const emptySearchMock = {
     data: {
       cities: {
         cities: [
-          { id: 1, name: 'Poznan', country: 'Poland' },
-          { id: 2, name: 'London', country: 'Great Britain' },
+          { id: 1, name: 'Poznan', country: 'Poland', visited: false },
+          { id: 2, name: 'London', country: 'Great Britain', visited: false },
         ],
       },
     },
@@ -57,7 +57,7 @@ const warSearchMock = {
   result: {
     data: {
       cities: {
-        cities: [{ id: 1, name: 'Warszawa', country: 'Poland' }],
+        cities: [{ id: 1, name: 'Warszawa', country: 'Poland', visited: false }],
       },
     },
   },
