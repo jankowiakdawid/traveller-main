@@ -8,6 +8,7 @@ export const GET_CITIES = gql`
         name
         country
         visited
+        wishlist
       }
     }
   }
@@ -22,9 +23,19 @@ export const VISIT_CITY = gql`
   }
 `
 
+export const WISHLIST_CITY = gql`
+  mutation WishlistCity($id: Int!, $wishlist: Boolean!) {
+    updateCity(input: { id: $id, wishlist: $wishlist }) {
+      id
+      wishlist
+    }
+  }
+`
+
 export type City = {
   id: number
   name: string
   country: string
   visited: boolean
+  wishlist: boolean
 }
