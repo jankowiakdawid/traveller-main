@@ -27,6 +27,7 @@ export function CityBlock({ city }: Props): JSX.Element {
       paddingY={2}
     >
       <button onClick={() => visitCity({ variables: { id: city.id, visited: !city.visited } })}>
+        <input type="checkbox" checked={city.visited} readOnly style={{ height: 0, width: 0, opacity: 0 }} />
         <Icon as={CheckCircleIcon} w={6} h={6} color={visitedColor} />
       </button>
       <Box textAlign="left">
