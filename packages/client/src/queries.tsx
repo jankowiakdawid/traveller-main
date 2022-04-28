@@ -13,6 +13,19 @@ export const GET_CITIES = gql`
     }
   }
 `
+export const GET_VISITED_CITIES = gql`
+  query VisitedCities {
+    cities(filter: { visited: true }, limit: 10) {
+      cities {
+        id
+        name
+        country
+        visited
+        wishlist
+      }
+    }
+  }
+`
 
 export const VISIT_CITY = gql`
   mutation VisitCity($id: Int!, $visited: Boolean!) {
