@@ -25,9 +25,10 @@ function CheckedButton({ children, checked, onClick, name }: BtnProps) {
 type Props = {
   city: City
   onVisitedClick?: () => void
+  onWishlistClick?: () => void
 }
 
-export function CityBlock({ city, onVisitedClick }: Props): JSX.Element {
+export function CityBlock({ city, onVisitedClick, onWishlistClick }: Props): JSX.Element {
   const visitedColor = city.visited ? 'green.400' : 'gray.200'
   const wishlistColor = city.wishlist ? 'yellow.400' : 'gray.200'
 
@@ -56,7 +57,7 @@ export function CityBlock({ city, onVisitedClick }: Props): JSX.Element {
       <CheckedButton
         name="wishlist"
         checked={city.wishlist}
-        onClick={() => wishlistCity({ variables: { id: city.id, wishlist: !city.wishlist } })}
+        onClick={() => (wishlistCity({ variables: { id: city.id, wishlist: !city.wishlist } }), onWishlistClick?.())}
       >
         <Icon as={StarIcon} w={6} h={6} color={wishlistColor} />
       </CheckedButton>
