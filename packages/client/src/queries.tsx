@@ -1,21 +1,10 @@
-import { gql } from '@apollo/client'
+import { useEffect } from 'react'
+import { gql, useQuery } from '@apollo/client'
+import type { QueryResult } from '@apollo/client'
 
 export const GET_CITIES = gql`
-  query Cities($city_name: String, $wishlist: Boolean) {
-    cities(filter: { name: $city_name, wishlist: $wishlist }, limit: 10) {
-      cities {
-        id
-        name
-        country
-        visited
-        wishlist
-      }
-    }
-  }
-`
-export const GET_VISITED_CITIES = gql`
-  query VisitedCities {
-    cities(filter: { visited: true }, limit: 10) {
+  query Cities($city_name: String, $wishlist: Boolean, $visited: Boolean) {
+    cities(filter: { name: $city_name, wishlist: $wishlist, visited: $visited }, limit: 10) {
       cities {
         id
         name
@@ -51,4 +40,18 @@ export type City = {
   country: string
   visited: boolean
   wishlist: boolean
+}
+
+export function useRefreshedQuery(variables: {
+  wishlist?: boolean
+  visited?: boolean
+  city_name?: string
+}): QueryResult {
+  const queryResponse = useQuery(GET_CITIES, { variables })
+
+  useEffect(() => {
+    queryResponse.refetch()
+  }, [])
+
+  return queryResponse
 }

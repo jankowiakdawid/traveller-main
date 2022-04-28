@@ -2,17 +2,16 @@ import React from 'react'
 import type { FC } from 'react'
 import { Container, InputRightElement, Input, Heading, InputGroup, IconButton, VStack, Icon } from '@chakra-ui/react'
 import { Search2Icon, SpinnerIcon } from '@chakra-ui/icons'
-import { useQuery } from '@apollo/client'
 
 import { ErrorAlert } from './ErrorAlert'
-import { GET_CITIES } from './queries'
+import { useRefreshedQuery } from './queries'
 import type { City } from './queries'
 
 import { CityBlock } from './CityBlock'
 
 export const Home: FC = () => {
   const [variables, setVariables] = React.useState({ city_name: '' })
-  const { loading, error, data } = useQuery(GET_CITIES, { variables })
+  const { loading, error, data } = useRefreshedQuery(variables)
 
   function search(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()

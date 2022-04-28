@@ -2,24 +2,12 @@ import React from 'react'
 import type { FC } from 'react'
 import { Container, Heading, VStack, Icon } from '@chakra-ui/react'
 import { SpinnerIcon } from '@chakra-ui/icons'
-import { useQuery } from '@apollo/client'
-import type { QueryResult } from '@apollo/client'
 
 import { ErrorAlert } from './ErrorAlert'
-import { GET_CITIES } from './queries'
+import { useRefreshedQuery } from './queries'
 import type { City } from './queries'
 
 import { CityBlock } from './CityBlock'
-
-function useRefreshedQuery(variables: { wishlist: boolean }): QueryResult {
-  const queryResponse = useQuery(GET_CITIES, { variables })
-
-  React.useEffect(() => {
-    queryResponse.refetch()
-  }, [])
-
-  return queryResponse
-}
 
 export const WishList: FC = () => {
   const { loading, error, data, refetch } = useRefreshedQuery({ wishlist: true })
