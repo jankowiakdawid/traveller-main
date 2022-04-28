@@ -2,9 +2,11 @@ import { useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import type { QueryResult } from '@apollo/client'
 
+export const LIMIT = 10
+
 export const GET_CITIES = gql`
-  query Cities($city_name: String, $wishlist: Boolean, $visited: Boolean) {
-    cities(filter: { name: $city_name, wishlist: $wishlist, visited: $visited }, limit: 10) {
+  query Cities($city_name: String, $wishlist: Boolean, $visited: Boolean, $offset: Int) {
+    cities(filter: { name: $city_name, wishlist: $wishlist, visited: $visited }, limit: ${LIMIT}, offset: $offset) {
       cities {
         id
         name
@@ -12,6 +14,7 @@ export const GET_CITIES = gql`
         visited
         wishlist
       }
+      total
     }
   }
 `
